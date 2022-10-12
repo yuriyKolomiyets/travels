@@ -30,7 +30,7 @@ public class Trip {
             inverseJoinColumns = @JoinColumn(name = "traveler_id"))
     private List<Traveler> travelers;
 
-    @Enumerated(value = EnumType.STRING)
-    private Enum <Meal> meal;
+    @Enumerated(EnumType.ORDINAL)
+    private Meal meal;
 
 }
