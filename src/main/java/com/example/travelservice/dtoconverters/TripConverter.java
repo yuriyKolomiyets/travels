@@ -1,6 +1,7 @@
 package com.example.travelservice.dtoconverters;
 
 import com.example.travelservice.dto.TripDto;
+import com.example.travelservice.model.Location;
 import com.example.travelservice.model.Meal;
 import com.example.travelservice.model.Traveler;
 import com.example.travelservice.model.Trip;
@@ -28,10 +29,17 @@ public class TripConverter {
             return null;
         }
 
+        //list of traveler for the trip created
+        //todo logic if 2 or more travelers
+        //todo throw own Exception
         List<Traveler> travelerList= new ArrayList<>();
         travelerList.add(travelerRepository.findById(source.getTravelerId()).orElseThrow());
-        return new Trip(source.getStartDate(), source.getEndDate(), locationService.findById(source.getLocationId()),
-                travelerList, Enum.valueOf(Meal.class, source.getMeal()));
+        Location location = locationService.findById(source.getLocationId());
+        return new Trip(
+                source.getStartDate(),
+                source.getEndDate(),
+                location,
+                travelerList,
+                Enum.valueOf(Meal.class, source.getMeal()));
     }
-
 }

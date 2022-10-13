@@ -41,6 +41,7 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
+    //todo throw own exception
     public Long findId(TravelerDto source) {
         Traveler traveler = StreamSupport.stream(travelerRepository.findAll().
                         spliterator(), false)

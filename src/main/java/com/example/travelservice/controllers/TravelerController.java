@@ -24,6 +24,7 @@ public class TravelerController {
 
         PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);
         personalInfoService.savePersonalInfo(personalInfo);
+
         Traveler traveler = travelerConverter.convertTraveler(travelerDto);
         return travelerService.saveTraveler(traveler);
     }

@@ -42,6 +42,8 @@ public class TripServiceImpl implements TripService {
 
         if (!getTrips().contains(trip)) {
             Trip save = tripRepositories.save(trip);
+            //I am not returning save cause List of travelers throw exception
+            //todo find out what should be returned in JSON
             Trip returnTrip = new Trip(save.getStartDate(),save.getEndDate(),save.getLocation(),save.getMeal());
             return returnTrip;
 

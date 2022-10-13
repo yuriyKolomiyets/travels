@@ -23,8 +23,9 @@ public class TravelerConverter {
             return null;
         }
         Long travelerId = travelerService.findId(source);
-        return new PersonalInfo(source.getEmail(),source.getPhone(),source.getAddress(),
-                travelerService.findById(travelerId));
+        Traveler traveler = travelerService.findById(travelerId);
+
+        return new PersonalInfo(source.getEmail(), source.getPhone(), source.getAddress(), traveler);
     }
 
     public Traveler convertTraveler(TravelerDto source) {
@@ -32,7 +33,8 @@ public class TravelerConverter {
             return null;
         }
         Long personInfoId = personalInfoService.findId(source);
-        return new Traveler(source.getFirstName(),source.getLastName(),source.getAge(),
-                personalInfoService.findById(personInfoId));
+        PersonalInfo personalInfo = personalInfoService.findById(personInfoId);
+
+        return new Traveler(source.getFirstName(), source.getLastName(), source.getAge(), personalInfo);
     }
 }
