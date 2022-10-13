@@ -1,17 +1,18 @@
 package com.example.travelservice.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"id", "latitude", "longitude"})
 
 public class Location {
     @Id
@@ -39,19 +40,5 @@ public class Location {
         this.hotelName = hotelName;
         this.latitude = latitude;
         this.longitude = longitude;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Location location = (Location) o;
-        return cityName.equals(location.cityName) && countryName.equals(location.countryName)
-                && hotelName.equals(location.hotelName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cityName, countryName, hotelName);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.travelservice.dto;
 
-import com.example.travelservice.model.Location;
 import lombok.*;
 
 @Getter
@@ -16,7 +15,5 @@ public class LocationDto {
     private String latitude;
     private String longitude;
 
-    public Location convertToLocation() {
-        return new Location(cityName, countryName, hotelName, latitude, longitude);
-    }
+
 }

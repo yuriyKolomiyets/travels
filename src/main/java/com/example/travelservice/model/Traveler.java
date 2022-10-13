@@ -1,6 +1,7 @@
 package com.example.travelservice.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Traveler {
 
     @Id
@@ -34,4 +36,10 @@ public class Traveler {
     @ManyToMany(mappedBy = "travelers")
     private List<Trip> tripsList;
 
+    public Traveler(String firstName, String lastName, Integer age, PersonalInfo personalInfo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.personalInfo = personalInfo;
+    }
 }

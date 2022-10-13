@@ -1,9 +1,11 @@
 package com.example.travelservice.controllers;
 
 import com.example.travelservice.dto.LocationDto;
+import com.example.travelservice.dtoconverters.LocationConverter;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.services.LocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LocationController {
 
-    LocationService locationService;
+    private final LocationService locationService;
+    private final LocationConverter locationConverter;
 
-    @PostMapping(value = "/location")
+    @PostMapping(value = "/create/location")
     public Location createLocation(@RequestBody LocationDto locationDto) {
 
-        return locationService.saveLocation(locationDto.convertToLocation());
+        return locationService.saveLocation(locationConverter.convert(locationDto));
     }
 }

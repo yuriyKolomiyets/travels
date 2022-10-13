@@ -1,6 +1,8 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dto.TravelerDto;
 import com.example.travelservice.exeptions.NotFoundException;
+import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.model.Traveler;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TravelerRepository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TravelerServiceImpl implements TravelerService {
@@ -35,6 +38,17 @@ public class TravelerServiceImpl implements TravelerService {
         }
 
         return travelerOptional.get();
+    }
+
+    @Override
+    public Long findId(TravelerDto source) {
+        Traveler traveler = StreamSupport.stream(travelerRepository.findAll().
+                        spliterator(), false)
+                .filter(p -> (
+                        p.getLastName().equals(source.getLastName())
+                                && p.getFirstName().equals(source.getFirstName())))
+                .findFirst().orElseThrow();
+        return traveler.getId();
     }
 
     @Override
