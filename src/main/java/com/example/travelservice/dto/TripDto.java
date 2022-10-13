@@ -18,5 +18,6 @@ public class TripDto {
     private Date endDate;
     private Long locationId;
     private String meal;
+    private Long travelerId;
 
 }

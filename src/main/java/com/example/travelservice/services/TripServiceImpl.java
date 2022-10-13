@@ -41,7 +41,9 @@ public class TripServiceImpl implements TripService {
     public Trip saveTrip(Trip trip) {
 
         if (!getTrips().contains(trip)) {
-            return tripRepositories.save(trip);
+            Trip save = tripRepositories.save(trip);
+            Trip returnTrip = new Trip(save.getStartDate(),save.getEndDate(),save.getLocation(),save.getMeal());
+            return returnTrip;
 
         } else throw new ExistsException("Trip already exists");
 

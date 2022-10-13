@@ -42,4 +42,11 @@ public class Trip {
         this.travelers = travelers;
         this.meal = meal;
     }
+
+    public Trip(Date startDate, Date endDate, Location location, Meal meal) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.meal = meal;
+    }
 }
