@@ -1,16 +1,16 @@
 package com.example.travelservice.exeptions;
 
-public class LocationExistsException extends RuntimeException {
+public class ExistsException extends RuntimeException {
 
-        public LocationExistsException() {
+        public ExistsException() {
             super();
         }
 
-    public LocationExistsException(String message) {
+    public ExistsException(String message) {
             super(message);
         }
 
-    public LocationExistsException(String message, Throwable cause) {
+    public ExistsException(String message, Throwable cause) {
             super(message, cause);
         }
     }

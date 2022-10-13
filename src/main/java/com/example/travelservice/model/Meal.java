@@ -1,5 +1,5 @@
 package com.example.travelservice.model;
 
-enum Meal {
+public enum Meal {
     ALL, BB, HB
 }

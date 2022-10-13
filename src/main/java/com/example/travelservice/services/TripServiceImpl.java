@@ -1,5 +1,6 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.exeptions.ExistsException;
 import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TripRepositories;
@@ -38,7 +39,12 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip saveTrip(Trip trip) {
-        return tripRepositories.save(trip);
+
+        if (!getTrips().contains(trip)) {
+            return tripRepositories.save(trip);
+
+        } else throw new ExistsException("Trip already exists");
+
     }
 
     @Override

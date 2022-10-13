@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-public class TripDtoToTrip {
+public class TripConverter {
 
     private final LocationService locationService;
 
-    public TripDtoToTrip(LocationService locationService) {
+    public TripConverter(LocationService locationService) {
         this.locationService = locationService;
     }
 

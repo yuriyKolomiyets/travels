@@ -33,4 +33,11 @@ public class Trip {
     @Enumerated(EnumType.ORDINAL)
     private Meal meal;
 
+    public Trip(Date startDate, Date endDate, Location location, List<Traveler> travelers, Meal meal) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.travelers = travelers;
+        this.meal = meal;
+    }
 }

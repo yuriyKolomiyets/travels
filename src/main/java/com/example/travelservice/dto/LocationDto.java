@@ -1,15 +1,14 @@
 package com.example.travelservice.dto;
 
+import com.example.travelservice.model.Location;
 import lombok.*;
-
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocationRequestModel {
+public class LocationDto {
 
     private String cityName;
     private String countryName;
@@ -17,4 +16,7 @@ public class LocationRequestModel {
     private String latitude;
     private String longitude;
 
+    public Location convertToLocation() {
+        return new Location(cityName, countryName, hotelName, latitude, longitude);
+    }
 }
