@@ -1,10 +1,11 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.exeptions.LocationExistsException;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.repositories.LocationRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.stream.StreamSupport;
 
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -17,7 +18,12 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public Location saveLocation(Location location) {
-        return locationRepository.save(location);
+
+        if (!StreamSupport.stream(locationRepository.findAll().spliterator(), false)
+                .anyMatch(location::equals)) {
+            return locationRepository.save(location);
+
+        } else throw new LocationExistsException("Location already exists");
     }
 
 }
