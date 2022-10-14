@@ -1,13 +1,9 @@
 package com.example.travelservice.services;
 
 import com.example.travelservice.dto.TravelerDto;
-import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.repositories.PersonalInfoRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
-import java.util.stream.StreamSupport;
 
 @Service
 public class PersonalInfoServiceImpl implements PersonalInfoService {

@@ -20,9 +20,9 @@ public class TripServiceImpl implements TripService {
         this.tripRepository = tripRepository;
     }
 
-
     @Override
     public Trip findById(Long l) {
+
         Optional<Trip> tripOptional = tripRepository.findById(l);
 
         if (!tripOptional.isPresent()) {
