@@ -14,7 +14,7 @@ public class TripController {
     private final TripService tripService;
     private final TripConverter tripConverter;
 
-    @PostMapping(value = "/create/trip")
+    @PostMapping(value = "/trip/create")
     public Trip createTrip(@RequestBody TripDto tripDto) {
         return tripService.createTrip(tripConverter.convert(tripDto));
     }

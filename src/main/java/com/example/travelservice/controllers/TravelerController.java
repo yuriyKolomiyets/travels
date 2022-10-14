@@ -19,7 +19,7 @@ public class TravelerController {
     private final TravelerService travelerService;
     private final TravelerConverter travelerConverter;
 
-    @PostMapping(value = "/create/traveler")
+    @PostMapping(value = "/traveler/create")
     public Traveler createTraveler(@RequestBody TravelerDto travelerDto) {
 
         PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);

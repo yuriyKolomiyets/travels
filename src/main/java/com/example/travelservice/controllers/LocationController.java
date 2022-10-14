@@ -16,7 +16,7 @@ public class LocationController {
     private final LocationService locationService;
     private final LocationConverter locationConverter;
 
-    @PostMapping(value = "/create/location")
+    @PostMapping(value = "/location/create")
     public Location createLocation(@RequestBody LocationDto locationDto) {
 
         return locationService.saveLocation(locationConverter.convert(locationDto));
