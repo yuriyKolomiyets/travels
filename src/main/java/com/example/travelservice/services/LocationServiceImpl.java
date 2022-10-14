@@ -1,6 +1,6 @@
 package com.example.travelservice.services;
 
-import com.example.travelservice.exeptions.ExistsException;
+import com.example.travelservice.exeptions.EntityAlreadyExistsException;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.repositories.LocationRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class LocationServiceImpl implements LocationService {
                 .anyMatch(location::equals)) {
             return locationRepository.save(location);
 
-        } else throw new ExistsException("Location already exists");
+        } else throw new EntityAlreadyExistsException("Location already exists");
     }
 
     @Override

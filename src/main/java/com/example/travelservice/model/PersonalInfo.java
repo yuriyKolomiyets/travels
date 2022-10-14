@@ -27,13 +27,9 @@ public class PersonalInfo {
     @Size(min = 3, max = 255)
     private String address;
 
-    @OneToOne
-    private Traveler traveler;
-
-    public PersonalInfo(String email, String phone, String address, Traveler traveler) {
+    public PersonalInfo(String email, String phone, String address) {
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.traveler = traveler;
     }
 }

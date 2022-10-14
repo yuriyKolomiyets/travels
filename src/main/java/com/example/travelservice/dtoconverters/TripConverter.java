@@ -29,17 +29,12 @@ public class TripConverter {
             return null;
         }
 
-        //list of traveler for the trip created
-        //todo logic if 2 or more travelers
-        //todo throw own Exception
-        List<Traveler> travelerList= new ArrayList<>();
-        travelerList.add(travelerRepository.findById(source.getTravelerId()).orElseThrow());
         Location location = locationService.findById(source.getLocationId());
         return new Trip(
                 source.getStartDate(),
                 source.getEndDate(),
                 location,
-                travelerList,
+                source.getTravelers(),
                 Enum.valueOf(Meal.class, source.getMeal()));
     }
 }

@@ -23,13 +23,6 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public Set<Traveler> getTravelers() {
-        Set<Traveler> travelerSet = new HashSet<>();
-        travelerRepository.findAll().iterator().forEachRemaining(travelerSet::add);
-        return travelerSet;
-    }
-
-    @Override
     public Traveler findById(Long l) {
         Optional<Traveler> travelerOptional = travelerRepository.findById(l);
 
@@ -41,24 +34,18 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    //todo throw own exception
     public Long findId(TravelerDto source) {
-        Traveler traveler = StreamSupport.stream(travelerRepository.findAll().
-                        spliterator(), false)
-                .filter(p -> (
-                        p.getLastName().equals(source.getLastName())
-                                && p.getFirstName().equals(source.getFirstName())))
-                .findFirst().orElseThrow();
+        Traveler traveler = travelerRepository
+                .findByFirstNameAndLastName(source.getFirstName(),source.getLastName())
+                .get(0);
+
         return traveler.getId();
     }
 
     @Override
-    public Traveler saveTraveler(Traveler traveler) {
+    public Traveler createTraveler(Traveler traveler) {
         return travelerRepository.save(traveler);
     }
 
-    @Override
-    public void deleteById(Long idToDelete) {
-        travelerRepository.deleteById(idToDelete);
-    }
+
 }

@@ -1,9 +1,10 @@
 package com.example.travelservice.services;
 
-import com.example.travelservice.exeptions.ExistsException;
+import com.example.travelservice.exeptions.EntityAlreadyExistsException;
 import com.example.travelservice.exeptions.NotFoundException;
+import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.model.Trip;
-import com.example.travelservice.repositories.TripRepositories;
+import com.example.travelservice.repositories.TripRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,22 +14,16 @@ import java.util.Set;
 @Service
 public class TripServiceImpl implements TripService {
 
-    private final TripRepositories tripRepositories;
+    private final TripRepository tripRepository;
 
-    public TripServiceImpl(TripRepositories tripRepositories) {
-        this.tripRepositories = tripRepositories;
+    public TripServiceImpl(TripRepository tripRepository) {
+        this.tripRepository = tripRepository;
     }
 
-    @Override
-    public Set<Trip> getTrips() {
-        Set<Trip> tripSet = new HashSet<>();
-        tripRepositories.findAll().iterator().forEachRemaining(tripSet::add);
-        return tripSet;
-    }
 
     @Override
     public Trip findById(Long l) {
-        Optional<Trip> tripOptional = tripRepositories.findById(l);
+        Optional<Trip> tripOptional = tripRepository.findById(l);
 
         if (!tripOptional.isPresent()) {
             throw new NotFoundException("Trip Not Found. For ID value: " + l.toString() );
@@ -38,21 +33,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Trip saveTrip(Trip trip) {
-
-        if (!getTrips().contains(trip)) {
-            Trip save = tripRepositories.save(trip);
-            //I am not returning save cause List of travelers throw exception
-            //todo find out what should be returned in JSON
-            Trip returnTrip = new Trip(save.getStartDate(),save.getEndDate(),save.getLocation(),save.getMeal());
-            return returnTrip;
-
-        } else throw new ExistsException("Trip already exists");
-
+    public Trip createTrip(Trip trip) {
+            return tripRepository.save(trip);
     }
 
-    @Override
-    public void deleteById(Long idToDelete) {
-        tripRepositories.deleteById(idToDelete);
-    }
 }

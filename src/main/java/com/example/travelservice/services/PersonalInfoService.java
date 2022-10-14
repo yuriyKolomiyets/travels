@@ -6,9 +6,7 @@ import com.example.travelservice.model.PersonalInfo;
 
 public interface PersonalInfoService {
 
-    PersonalInfo savePersonalInfo(PersonalInfo personalInfo);
-
-    void deleteById(Long idToDelete);
+    PersonalInfo createPersonalInfo(PersonalInfo personalInfo);
 
     PersonalInfo findById (Long id);
 

@@ -6,12 +6,9 @@ import java.util.Set;
 
 public interface TripService {
 
-    Set<Trip> getTrips();
-
     Trip findById(Long l);
 
-    Trip saveTrip(Trip trip);
+    Trip createTrip(Trip trip);
 
-    void deleteById(Long idToDelete);
 
 }

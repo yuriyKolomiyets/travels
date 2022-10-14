@@ -23,9 +23,9 @@ public class TravelerController {
     public Traveler createTraveler(@RequestBody TravelerDto travelerDto) {
 
         PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);
-        personalInfoService.savePersonalInfo(personalInfo);
+        personalInfoService.createPersonalInfo(personalInfo);
 
         Traveler traveler = travelerConverter.convertTraveler(travelerDto);
-        return travelerService.saveTraveler(traveler);
+        return travelerService.createTraveler(traveler);
     }
 }

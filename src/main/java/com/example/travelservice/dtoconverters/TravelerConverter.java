@@ -22,10 +22,7 @@ public class TravelerConverter {
         if (source == null) {
             return null;
         }
-        Long travelerId = travelerService.findId(source);
-        Traveler traveler = travelerService.findById(travelerId);
-
-        return new PersonalInfo(source.getEmail(), source.getPhone(), source.getAddress(), traveler);
+        return new PersonalInfo(source.getEmail(), source.getPhone(), source.getAddress());
     }
 
     public Traveler convertTraveler(TravelerDto source) {

@@ -1,5 +1,6 @@
 package com.example.travelservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class Traveler {
     @OneToOne(cascade = CascadeType.ALL)
     private PersonalInfo personalInfo;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "travelers")
     private List<Trip> tripsList;
 

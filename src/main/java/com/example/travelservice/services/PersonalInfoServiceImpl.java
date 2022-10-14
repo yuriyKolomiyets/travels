@@ -19,14 +19,13 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     }
 
     @Override
-    public PersonalInfo savePersonalInfo(PersonalInfo personalInfo) {
-        return personalInfoRepository.save(personalInfo);
+    public PersonalInfo createPersonalInfo(PersonalInfo source) {
+        if(personalInfoNotExists(source)){
+            return personalInfoRepository.save(source);
+        }
+        return source;
     }
 
-    @Override
-    public void deleteById(Long idToDelete) {
-        personalInfoRepository.deleteById(idToDelete);
-    }
 
     @Override
     public PersonalInfo findById(Long id) {
@@ -36,9 +35,11 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     @Override
     public Long findId(TravelerDto source) {
 
-        PersonalInfo personalInfo = StreamSupport.stream(personalInfoRepository.findAll().
-                        spliterator(), false).filter(p -> p.getEmail().equals(source.getEmail()))
-                .findFirst().orElseThrow();
+        PersonalInfo personalInfo = personalInfoRepository.findByEmailIs(source.getEmail()).get(0);
         return personalInfo.getId();
+    }
+
+    public boolean personalInfoNotExists(PersonalInfo source) {
+        return personalInfoRepository.findByEmailIs(source.getEmail()).isEmpty();
     }
 }

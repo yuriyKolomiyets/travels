@@ -1,11 +1,13 @@
 package com.example.travelservice.dto;
 
+import com.example.travelservice.model.Traveler;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -18,6 +20,6 @@ public class TripDto {
     private Date endDate;
     private Long locationId;
     private String meal;
-    private Long travelerId;
+    private List<Traveler> travelers;
 
 }
