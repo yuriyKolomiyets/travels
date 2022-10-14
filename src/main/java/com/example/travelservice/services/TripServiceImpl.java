@@ -20,7 +20,6 @@ public class TripServiceImpl implements TripService {
         this.tripRepository = tripRepository;
     }
 
-
     @Override
     public Trip findById(Long l) {
 
