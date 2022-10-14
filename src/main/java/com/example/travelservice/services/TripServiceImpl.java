@@ -23,6 +23,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip findById(Long l) {
+
         Optional<Trip> tripOptional = tripRepository.findById(l);
 
         if (!tripOptional.isPresent()) {

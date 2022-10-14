@@ -2,6 +2,7 @@ package com.example.travelservice.services;
 
 import com.example.travelservice.exeptions.EntityAlreadyExistsException;
 import com.example.travelservice.model.Location;
+import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.repositories.LocationRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +18,24 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location saveLocation(Location location) {
+    public Location createLocation(Location location) {
 
-        if (!StreamSupport.stream(locationRepository.findAll().spliterator(), false)
-                .anyMatch(location::equals)) {
+        if (locationNotExists(location)) {
             return locationRepository.save(location);
 
-        } else throw new EntityAlreadyExistsException("Location already exists");
+        } else {
+            throw new EntityAlreadyExistsException("Location already exists");
+        }
     }
 
     @Override
     public Location findById(Long id) {
         return locationRepository.findById(id).orElseThrow();
+    }
+
+    public boolean locationNotExists(Location source) {
+        return locationRepository.findByCityNameAndCountryNameAndHotelName(source.getCityName(),
+                source.getCountryName(), source.getHotelName()).isEmpty();
     }
 
 
