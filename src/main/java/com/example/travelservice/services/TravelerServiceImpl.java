@@ -1,6 +1,8 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dto.TravelerDto;
 import com.example.travelservice.exeptions.NotFoundException;
+import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.model.Traveler;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TravelerRepository;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 @Service
 public class TravelerServiceImpl implements TravelerService {
@@ -17,13 +20,6 @@ public class TravelerServiceImpl implements TravelerService {
 
     public TravelerServiceImpl(TravelerRepository travelerRepository) {
         this.travelerRepository = travelerRepository;
-    }
-
-    @Override
-    public Set<Traveler> getTravelers() {
-        Set<Traveler> travelerSet = new HashSet<>();
-        travelerRepository.findAll().iterator().forEachRemaining(travelerSet::add);
-        return travelerSet;
     }
 
     @Override
@@ -38,12 +34,18 @@ public class TravelerServiceImpl implements TravelerService {
     }
 
     @Override
-    public Traveler saveTraveler(Traveler traveler) {
-        return travelerRepository.save(traveler);
+    public Long findId(TravelerDto source) {
+        Traveler traveler = travelerRepository
+                .findByFirstNameAndLastName(source.getFirstName(),source.getLastName())
+                .get(0);
+
+        return traveler.getId();
     }
 
     @Override
-    public void deleteById(Long idToDelete) {
-        travelerRepository.deleteById(idToDelete);
+    public Traveler createTraveler(Traveler traveler) {
+        return travelerRepository.save(traveler);
     }
+
+
 }

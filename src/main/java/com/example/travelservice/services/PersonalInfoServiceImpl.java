@@ -1,10 +1,13 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dto.TravelerDto;
+import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.repositories.PersonalInfoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.StreamSupport;
 
 @Service
 public class PersonalInfoServiceImpl implements PersonalInfoService {
@@ -16,12 +19,27 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     }
 
     @Override
-    public PersonalInfo savePersonalInfo(PersonalInfo personalInfo) {
-        return personalInfoRepository.save(personalInfo);
+    public PersonalInfo createPersonalInfo(PersonalInfo source) {
+        if(personalInfoNotExists(source)){
+            return personalInfoRepository.save(source);
+        }
+        return source;
+    }
+
+
+    @Override
+    public PersonalInfo findById(Long id) {
+        return personalInfoRepository.findById(id).orElseThrow();
     }
 
     @Override
-    public void deleteById(Long idToDelete) {
-        personalInfoRepository.deleteById(idToDelete);
+    public Long findId(TravelerDto source) {
+
+        PersonalInfo personalInfo = personalInfoRepository.findByEmailIs(source.getEmail()).get(0);
+        return personalInfo.getId();
+    }
+
+    public boolean personalInfoNotExists(PersonalInfo source) {
+        return personalInfoRepository.findByEmailIs(source.getEmail()).isEmpty();
     }
 }

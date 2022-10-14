@@ -2,6 +2,7 @@ package com.example.travelservice.model;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class PersonalInfo {
 
     @Id
@@ -25,6 +27,9 @@ public class PersonalInfo {
     @Size(min = 3, max = 255)
     private String address;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Traveler traveler;
+    public PersonalInfo(String email, String phone, String address) {
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
 }

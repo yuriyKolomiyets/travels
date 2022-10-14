@@ -2,6 +2,7 @@ package com.example.travelservice.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode(exclude = {"travelers"})
+@NoArgsConstructor
 @Entity
 public class Trip {
 
@@ -33,4 +35,18 @@ public class Trip {
     @Enumerated(EnumType.ORDINAL)
     private Meal meal;
 
+    public Trip(Date startDate, Date endDate, Location location, List<Traveler> travelers, Meal meal) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.travelers = travelers;
+        this.meal = meal;
+    }
+
+    public Trip(Date startDate, Date endDate, Location location, Meal meal) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.meal = meal;
+    }
 }

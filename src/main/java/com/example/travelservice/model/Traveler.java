@@ -1,6 +1,8 @@
 package com.example.travelservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Traveler {
 
     @Id
@@ -31,7 +34,14 @@ public class Traveler {
     @OneToOne(cascade = CascadeType.ALL)
     private PersonalInfo personalInfo;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "travelers")
     private List<Trip> tripsList;
 
+    public Traveler(String firstName, String lastName, Integer age, PersonalInfo personalInfo) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.personalInfo = personalInfo;
+    }
 }
