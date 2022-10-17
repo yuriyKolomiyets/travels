@@ -29,12 +29,8 @@ public class TravelerController {
         return travelerService.createTraveler(traveler);
     }
 
-    @PutMapping("traveler/id/{id}/update")
-    public Traveler updateEmail(@PathVariable Long id, @RequestBody String email){
-        return personalInfoService.updateEmail(id, email);
-    }
 
-    @PutMapping("traveler/id/{id}/update-model")
+    @PutMapping("traveler/id/{id}/update")
     public Traveler updateEmail(@PathVariable Long id, @RequestBody TravelerDto travelerDto){
         PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);
         personalInfoService.updatePersonalInfo(id, personalInfo);

@@ -27,7 +27,7 @@ public class TripServiceImpl implements TripService {
         Optional<Trip> tripOptional = tripRepository.findById(l);
 
         if (!tripOptional.isPresent()) {
-            throw new NotFoundException("Trip Not Found. For ID value: " + l.toString() );
+            throw new NotFoundException("Trip Not Found. For ID value: " + l.toString());
         }
 
         return tripOptional.get();
@@ -35,7 +35,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip createTrip(Trip trip) {
-            return tripRepository.save(trip);
+        return tripRepository.save(trip);
     }
 
     @Override
@@ -46,8 +46,13 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip updateTrip(Long id, Trip trip) {
-        trip.setId(id);
-        return tripRepository.save(trip);
-    }
 
+        trip.setId(id);
+
+        if (tripRepository.findById(id).isPresent()) {
+            return tripRepository.save(trip);
+        } else {
+            return createTrip(trip);
+        }
+    }
 }

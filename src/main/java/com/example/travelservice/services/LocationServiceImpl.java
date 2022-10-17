@@ -49,7 +49,11 @@ public class LocationServiceImpl implements LocationService {
     public Location updateLocation(Long locationId, LocationDto locationDto) {
         Location location = locationConverter.convert(locationDto);
         location.setId(locationId);
-        return locationRepository.save(location);
+        if(!locationNotExists(location)){
+            return locationRepository.save(location);
+        } else{
+            return createLocation(location);
+        }
     }
 
     public boolean locationNotExists(Location source) {

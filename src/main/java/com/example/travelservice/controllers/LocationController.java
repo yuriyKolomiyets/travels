@@ -19,13 +19,8 @@ public class LocationController {
         return locationService.createLocation(locationConverter.convert(locationDto));
     }
 
+
     @PutMapping("location/id/{locationId}/update")
-    public Location updateCity(@PathVariable Long locationId, @RequestBody String cityName){
-        return locationService.updateCity(locationId, cityName);
-    }
-
-
-    @PutMapping("location/id/{locationId}/update-model")
     public Location updateLocation(@PathVariable Long locationId, @RequestBody LocationDto locationDto){
         return locationService.updateLocation(locationId, locationDto);
     }

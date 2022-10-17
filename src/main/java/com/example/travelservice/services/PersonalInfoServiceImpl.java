@@ -57,8 +57,8 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
 
         Traveler traveler = travelerRepository.findById(id).orElseThrow(() ->
                 new NotFoundException("Traveler Not Found. For ID value: " + id.toString() ));
-        Long travelerId = traveler.getPersonalInfo().getId();
-        personalInfo.setId(travelerId);
+        Long personalInfoId = traveler.getPersonalInfo().getId();
+        personalInfo.setId(personalInfoId);
         return personalInfoRepository.save(personalInfo);
     }
 }

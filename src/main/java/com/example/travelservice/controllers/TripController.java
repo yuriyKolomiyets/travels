@@ -29,7 +29,7 @@ public class TripController {
         return tripService.showTripWeather(tripConverter.convert(tripDto));
     }
 
-    @PutMapping("trip/id/{id}/update-model")
+    @PutMapping("trip/id/{id}/update")
     public Trip updateTrip(@PathVariable Long id, @RequestBody TripDto tripDto){
         return tripService.updateTrip (id, tripConverter.convert(tripDto));
     }
