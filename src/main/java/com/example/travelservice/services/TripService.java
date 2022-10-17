@@ -1,7 +1,9 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.model.Trip;
 
+import java.util.List;
 import java.util.Set;
 
 public interface TripService {
@@ -10,5 +12,5 @@ public interface TripService {
 
     Trip createTrip(Trip trip);
 
-
+    List<WeatherDto> showTripWeather(Trip convert);
 }

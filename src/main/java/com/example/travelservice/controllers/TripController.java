@@ -1,11 +1,14 @@
 package com.example.travelservice.controllers;
 
 import com.example.travelservice.dto.TripDto;
+import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.services.TripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,5 +20,10 @@ public class TripController {
     @PostMapping(value = "/trip/create")
     public Trip createTrip(@RequestBody TripDto tripDto) {
         return tripService.createTrip(tripConverter.convert(tripDto));
+    }
+
+    @GetMapping(value = "/trip/show-weather")
+    public List<WeatherDto> showTripWeather(@RequestBody TripDto tripDto) {
+        return tripService.showTripWeather(tripConverter.convert(tripDto));
     }
 }
