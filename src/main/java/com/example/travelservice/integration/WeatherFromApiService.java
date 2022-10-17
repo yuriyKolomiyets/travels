@@ -3,6 +3,7 @@ package com.example.travelservice.integration;
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.model.Location;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,9 +12,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WeatherFromApi {
+public class WeatherFromApiService {
 
-    private final String host = "http://localhost:8080/api/";
+    @Value("${rest.base.path}")
+    private String host;
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<WeatherDto> getWeatherByLatitudeAndLongitude(Location location) {
