@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface LocationRepository extends CrudRepository<Location, Long> {
     List<Location> findByCityNameAndCountryNameAndHotelName(String cityName, String countryName, String hotelName);
+
 }
