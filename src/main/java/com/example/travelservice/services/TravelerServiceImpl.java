@@ -41,5 +41,11 @@ public class TravelerServiceImpl implements TravelerService {
         return travelerRepository.save(traveler);
     }
 
+    @Override
+    public Traveler updateTraveler(Long id, Traveler traveler) {
+        traveler.setId(id);
+        return travelerRepository.save(traveler);
+    }
+
 
 }

@@ -44,4 +44,10 @@ public class TripServiceImpl implements TripService {
 
     }
 
+    @Override
+    public Trip updateTrip(Long id, Trip trip) {
+        trip.setId(id);
+        return tripRepository.save(trip);
+    }
+
 }

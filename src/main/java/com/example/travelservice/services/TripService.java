@@ -1,5 +1,6 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dto.TripDto;
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.model.Trip;
 
@@ -13,4 +14,6 @@ public interface TripService {
     Trip createTrip(Trip trip);
 
     List<WeatherDto> showTripWeather(Trip convert);
+
+    Trip updateTrip(Long id, Trip trip);
 }
