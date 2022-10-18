@@ -8,7 +8,6 @@ public interface LocationService {
 
     Location findById(Long id);
 
-    Location updateCity(Long locationId, String cityName);
-
     Location updateLocation(Long locationId, LocationDto locationDto);
+
 }

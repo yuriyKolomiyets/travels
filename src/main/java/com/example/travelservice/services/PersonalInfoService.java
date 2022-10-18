@@ -13,7 +13,5 @@ public interface PersonalInfoService {
 
     Long findId(TravelerDto source);
 
-    Traveler updateEmail(Long id, String email);
-
     PersonalInfo updatePersonalInfo(Long id, PersonalInfo personalInfo);
 }

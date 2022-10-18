@@ -38,18 +38,10 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location updateCity(Long locationId, String cityName) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() ->
-                new NotFoundException("Location with id" + locationId.toString() + " not found"));
-        location.setCityName(cityName);
-        return locationRepository.save(location);
-    }
-
-    @Override
     public Location updateLocation(Long locationId, LocationDto locationDto) {
         Location location = locationConverter.convert(locationDto);
         location.setId(locationId);
-        if (locationNotExists(location)) {
+        if (locationRepository.findById(locationId).isEmpty()) {
             throw new NotFoundException("Location with id" + locationId.toString() + " not found");
         } else {
             return locationRepository.save(location);
@@ -60,6 +52,5 @@ public class LocationServiceImpl implements LocationService {
         return locationRepository.findByCityNameAndCountryNameAndHotelName(source.getCityName(),
                 source.getCountryName(), source.getHotelName()).isEmpty();
     }
-
 
 }
