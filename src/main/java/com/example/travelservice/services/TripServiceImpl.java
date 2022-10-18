@@ -52,7 +52,7 @@ public class TripServiceImpl implements TripService {
         if (tripRepository.findById(id).isPresent()) {
             return tripRepository.save(trip);
         } else {
-            return createTrip(trip);
+            throw new NotFoundException("Trip Not Found. For ID value: " + id.toString());
         }
     }
 }

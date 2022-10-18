@@ -47,7 +47,7 @@ public class TravelerServiceImpl implements TravelerService {
         if(travelerRepository.findById(id).isPresent()){
             return travelerRepository.save(traveler);
         } else{
-            return createTraveler(traveler);
+            throw new NotFoundException("Traveler Not Found. For ID value: " + id.toString());
         }
     }
 }

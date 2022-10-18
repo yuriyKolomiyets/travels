@@ -1,9 +1,7 @@
 package com.example.travelservice.controllers;
 
-import com.example.travelservice.dto.LocationDto;
 import com.example.travelservice.dto.TravelerDto;
 import com.example.travelservice.dtoconverters.TravelerConverter;
-import com.example.travelservice.model.Location;
 import com.example.travelservice.model.PersonalInfo;
 import com.example.travelservice.model.Traveler;
 import com.example.travelservice.services.PersonalInfoService;
@@ -31,7 +29,7 @@ public class TravelerController {
 
 
     @PutMapping("traveler/id/{id}/update")
-    public Traveler updateEmail(@PathVariable Long id, @RequestBody TravelerDto travelerDto){
+    public Traveler updateTraveler(@PathVariable Long id, @RequestBody TravelerDto travelerDto){
         PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);
         personalInfoService.updatePersonalInfo(id, personalInfo);
 
