@@ -7,9 +7,7 @@ import com.example.travelservice.model.Traveler;
 import com.example.travelservice.services.PersonalInfoService;
 import com.example.travelservice.services.TravelerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,5 +25,15 @@ public class TravelerController {
 
         Traveler traveler = travelerConverter.convertTraveler(travelerDto);
         return travelerService.createTraveler(traveler);
+    }
+
+
+    @PutMapping("traveler/id/{id}/update")
+    public Traveler updateTraveler(@PathVariable Long id, @RequestBody TravelerDto travelerDto){
+        PersonalInfo personalInfo = travelerConverter.convertPersonalInfo(travelerDto);
+        personalInfoService.updatePersonalInfo(id, personalInfo);
+
+        Traveler traveler = travelerConverter.convertTraveler(travelerDto);
+        return travelerService.updateTraveler(id, traveler);
     }
 }

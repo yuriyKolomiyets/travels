@@ -41,5 +41,13 @@ public class TravelerServiceImpl implements TravelerService {
         return travelerRepository.save(traveler);
     }
 
-
+    @Override
+    public Traveler updateTraveler(Long id, Traveler traveler) {
+        traveler.setId(id);
+        if(travelerRepository.findById(id).isPresent()){
+            return travelerRepository.save(traveler);
+        } else{
+            throw new NotFoundException("Traveler Not Found. For ID value: " + id.toString());
+        }
+    }
 }

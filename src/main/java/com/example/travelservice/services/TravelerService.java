@@ -10,4 +10,7 @@ public interface TravelerService {
 
     Long findId(TravelerDto source);
 
-    Traveler createTraveler(Traveler traveler);}
+    Traveler createTraveler(Traveler traveler);
+
+    Traveler updateTraveler(Long id, Traveler traveler);
+}

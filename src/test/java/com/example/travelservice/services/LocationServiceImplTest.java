@@ -1,5 +1,6 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dtoconverters.LocationConverter;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.repositories.LocationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,10 +20,13 @@ class LocationServiceImplTest {
     @Mock
     LocationRepository locationRepository;
 
+    @Mock
+    LocationConverter locationConverter;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        locationService = new LocationServiceImpl(locationRepository);
+        locationService = new LocationServiceImpl(locationRepository, locationConverter);
     }
 
     @Test
