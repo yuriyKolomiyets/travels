@@ -52,8 +52,8 @@ class TripServiceImplTest {
         verify(tripRepository, times(1)).save(argumentCaptor.capture());
         Trip value = argumentCaptor.getValue();
 
-        assertEquals(location, trip.getLocation());
-        assertEquals(Meal.ALL, trip.getMeal());
+        assertEquals(location, value.getLocation());
+        assertEquals(Meal.ALL, value.getMeal());
 
         assertThrows(NotFoundException.class, () -> tripService.updateTrip(2L, trip));
 
