@@ -45,14 +45,6 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
     }
 
     @Override
-    public Traveler updateEmail(Long id, String email) {
-        Traveler traveler = travelerRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("Traveler Not Found. For ID value: " + id.toString() ));
-        traveler.getPersonalInfo().setEmail(email);
-        return traveler;
-    }
-
-    @Override
     public PersonalInfo updatePersonalInfo(Long id, PersonalInfo personalInfo) {
 
         Traveler traveler = travelerRepository.findById(id).orElseThrow(() ->
