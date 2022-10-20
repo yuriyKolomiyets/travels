@@ -16,6 +16,10 @@ public class WeatherFromApiService {
 
     @Value("${rest.base.path}")
     private String host;
+
+    @Value("${rest.base.path1}")
+    private String hostRabbit;
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     public List<WeatherDto> getWeatherByLatitudeAndLongitude(Location location) {
@@ -24,8 +28,29 @@ public class WeatherFromApiService {
         return Arrays.asList(forObject);
     }
 
+    //todo refactoring to avoid code duplicates
+
+    public List<WeatherDto> getWeatherByLatitudeAndLongitudeWithRabbit (Location location) {
+
+        // call sendWeatherWithRabbit on weather service?
+
+        return null;
+    }
+
     private String urlBuilder(Location location) {
         String s = host +
+                "latitude/" +
+                location.getLatitude() + "/longitude/" +
+                location.getLongitude();
+        System.out.println(s);
+
+        return s;
+    }
+
+    //todo refactoring to avoid code duplicates
+
+    private String urlBuilderRabbit (Location location) {
+        String s = hostRabbit +
                 "latitude/" +
                 location.getLatitude() + "/longitude/" +
                 location.getLongitude();
