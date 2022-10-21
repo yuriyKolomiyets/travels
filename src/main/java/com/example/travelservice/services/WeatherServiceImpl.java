@@ -22,23 +22,19 @@ public class WeatherServiceImpl implements WeatherService {
     private final WeatherChannels weatherChannels;
 
     @Override
-    public List<WeatherDto> showTripWeather(Trip trip) {
+    public List<WeatherDto> getWeatherThroughRest(Trip trip) {
         return weatherFromApiService.getWeatherByLatitudeAndLongitude(trip.getLocation());
     }
 
     @Override
     @StreamListener(WeatherChannels.WEATHER_RESPONSE_INPUT_CHANNEL)
-    public void listenWeatherResponse(WeatherDto weatherDto) {
-        log.info("Got response for weatherApi {}", weatherDto);
-        System.out.println("Got response for weatherApi {}" + weatherDto.toString());
-
-
+    public void listenWeatherResponse(List<WeatherDto> weathers) {
+        log.info("Got response for weatherApi {}", weathers);
     }
 
     @Override
     public void sendWeatherRequest(WeatherRequest weatherRequest) {
         weatherChannels.weatherRequest().send(MessageBuilder.withPayload(weatherRequest).build());
         log.info("Weather requested {} ", weatherRequest);
-        System.out.println("Weather requested {} " + weatherRequest.toString());
     }
 }

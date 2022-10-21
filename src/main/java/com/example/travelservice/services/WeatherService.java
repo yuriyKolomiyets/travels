@@ -3,13 +3,12 @@ package com.example.travelservice.services;
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dto.WeatherRequest;
 import com.example.travelservice.model.Trip;
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
 
 public interface WeatherService {
-    List<WeatherDto> showTripWeather(Trip convert);
+    List<WeatherDto> getWeatherThroughRest(Trip convert);
 
-    void listenWeatherResponse(WeatherDto weatherDto);
+    void listenWeatherResponse(List<WeatherDto> weathers);
     void sendWeatherRequest(WeatherRequest weatherRequest);
 }

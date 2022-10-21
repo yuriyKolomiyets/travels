@@ -26,7 +26,7 @@ public class TripController {
 
     @GetMapping(value = "/trip/show-weather")
     public List<WeatherDto> showTripWeather(@RequestBody TripDto tripDto) {
-        return weatherService.showTripWeather(tripConverter.convertTripDtoToTrip(tripDto));
+        return weatherService.getWeatherThroughRest(tripConverter.convertTripDtoToTrip(tripDto));
     }
 
     @PutMapping("trip/id/{id}/update")
