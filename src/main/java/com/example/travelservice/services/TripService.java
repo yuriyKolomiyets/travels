@@ -13,7 +13,7 @@ public interface TripService {
 
     Trip createTrip(Trip trip);
 
-    List<WeatherDto> showTripWeather(Trip convert);
+
 
     Trip updateTrip(Long id, Trip trip);
 }

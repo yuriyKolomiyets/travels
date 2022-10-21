@@ -4,6 +4,7 @@ import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.services.TripService;
+import com.example.travelservice.services.WeatherService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,10 @@ class TripControllerTest {
     @Mock
     TripConverter tripConverter;
 
+    @Mock
+    WeatherService weatherService;
+
+
     TripController tripController;
     public static final Long TRIP_ID = 1L;
 
@@ -37,7 +42,7 @@ class TripControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        tripController = new TripController(tripService, tripConverter);
+        tripController = new TripController(tripService, tripConverter, weatherService);
         mockMvc = MockMvcBuilders.standaloneSetup(tripController)
                 .build();
 

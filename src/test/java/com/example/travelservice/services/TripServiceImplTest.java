@@ -1,5 +1,6 @@
 package com.example.travelservice.services;
 
+import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Location;
@@ -27,12 +28,18 @@ class TripServiceImplTest {
     @Mock
     WeatherFromApiService weatherFromApiService;
 
+    @Mock
+    WeatherService weatherService;
+
+    @Mock
+    TripConverter tripConverter;
+
     TripService tripService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        tripService = new TripServiceImpl(tripRepository, weatherFromApiService);
+        tripService = new TripServiceImpl(tripRepository, weatherService, tripConverter);
     }
 
     @Test

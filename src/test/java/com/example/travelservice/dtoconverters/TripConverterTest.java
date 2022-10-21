@@ -1,23 +1,15 @@
 package com.example.travelservice.dtoconverters;
 
-import com.example.travelservice.controllers.TripController;
-import com.example.travelservice.dto.LocationDto;
 import com.example.travelservice.dto.TripDto;
 import com.example.travelservice.model.Location;
-import com.example.travelservice.model.Meal;
 import com.example.travelservice.model.Trip;
-import com.example.travelservice.repositories.LocationRepository;
 import com.example.travelservice.repositories.TravelerRepository;
 import com.example.travelservice.services.LocationService;
-import com.example.travelservice.services.LocationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -60,7 +52,7 @@ class TripConverterTest {
         //when
         when(locationService.findById(1L)).thenReturn(location);
 
-        Trip trip = tripConverter.convert(tripDto);
+        Trip trip = tripConverter.convertTripDtoToTrip(tripDto);
 
         //then
         assertEquals(START, trip.getStartDate());
