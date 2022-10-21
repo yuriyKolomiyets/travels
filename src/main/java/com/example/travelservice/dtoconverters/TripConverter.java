@@ -1,6 +1,7 @@
 package com.example.travelservice.dtoconverters;
 
 import com.example.travelservice.dto.TripDto;
+import com.example.travelservice.dto.WeatherRequest;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.model.Meal;
 import com.example.travelservice.model.Trip;
@@ -20,7 +21,7 @@ public class TripConverter {
     }
 
 
-    public Trip convert(TripDto source) {
+    public Trip convertTripDtoToTrip (TripDto source) {
         if (source == null) {
             return null;
         }
@@ -34,4 +35,17 @@ public class TripConverter {
                 source.getTravelers(),
                 Enum.valueOf(Meal.class, source.getMeal()));
     }
+
+    public WeatherRequest convertTripToWeatherRequest (Trip source) {
+        if (source == null) {
+            return null;
+        }
+
+        return new WeatherRequest(
+                Double.valueOf(source.getLocation().getLatitude()),
+                Double.valueOf(source.getLocation().getLongitude())
+        );
+    }
+
+
 }
