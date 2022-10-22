@@ -1,10 +1,6 @@
 package com.example.travelservice.services;
-
-import com.example.travelservice.dto.WeatherDto;
-import com.example.travelservice.dto.WeatherRequest;
 import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
-import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TripRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,10 +30,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip createTrip(Trip trip) {
-        weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip));
-        return tripRepository.save(trip);
-
-
+        Trip save = tripRepository.save(trip);
+        weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip, trip.getId()));
+        return save;
     }
 
     @Override
@@ -50,5 +45,11 @@ public class TripServiceImpl implements TripService {
         } else {
             throw new NotFoundException("Trip Not Found. For ID value: " + id.toString());
         }
+    }
+
+    @Override
+    public Long findId(Trip source) {
+        Trip trip = tripRepository.findByStartDateAndLocation(source.getStartDate(), source.getLocation()).get(0);
+        return trip.getId();
     }
 }

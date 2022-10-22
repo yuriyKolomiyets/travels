@@ -5,6 +5,7 @@ import com.example.travelservice.model.Location;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TravelerRepository;
 import com.example.travelservice.services.LocationService;
+import com.example.travelservice.services.TripService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -31,11 +32,15 @@ class TripConverterTest {
     @Mock
     LocationService locationService;
 
+    @Mock
+    TripService tripService;
+
+
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        tripConverter = new TripConverter(locationService, travelerRepository);
+        tripConverter = new TripConverter(locationService, travelerRepository, tripService);
     }
 
     @Test

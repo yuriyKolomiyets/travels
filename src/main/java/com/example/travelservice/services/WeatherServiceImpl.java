@@ -2,6 +2,7 @@ package com.example.travelservice.services;
 
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dto.WeatherRequest;
+import com.example.travelservice.dtoconverters.WeatherResponse;
 import com.example.travelservice.integration.WeatherChannels;
 import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Trip;
@@ -28,8 +29,8 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @StreamListener(WeatherChannels.WEATHER_RESPONSE_INPUT_CHANNEL)
-    public void listenWeatherResponse(List<WeatherDto> weathers) {
-        log.info("Got response for weatherApi {}", weathers);
+    public void listenWeatherResponse(List<WeatherResponse> weatherResponses) {
+        log.info("Got response for weatherApi {}", weatherResponses);
     }
 
     @Override

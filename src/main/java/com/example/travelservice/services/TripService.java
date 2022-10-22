@@ -16,4 +16,6 @@ public interface TripService {
 
 
     Trip updateTrip(Long id, Trip trip);
+
+    Long findId(Trip source);
 }
