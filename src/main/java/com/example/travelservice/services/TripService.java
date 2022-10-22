@@ -18,4 +18,6 @@ public interface TripService {
     Trip updateTrip(Long id, Trip trip);
 
     Long findId(Trip source);
+
+    List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherResponseUnitList);
 }

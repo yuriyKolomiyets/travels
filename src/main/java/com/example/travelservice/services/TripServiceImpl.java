@@ -1,4 +1,5 @@
 package com.example.travelservice.services;
+import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.model.Trip;
@@ -6,6 +7,7 @@ import com.example.travelservice.repositories.TripRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,5 +53,13 @@ public class TripServiceImpl implements TripService {
     public Long findId(Trip source) {
         Trip trip = tripRepository.findByStartDateAndLocation(source.getStartDate(), source.getLocation()).get(0);
         return trip.getId();
+    }
+
+    @Override
+    public List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherDtoList) {
+        Trip trip = findById(tripId);
+        trip.setWeatherDtoList(weatherDtoList);
+        updateTrip(tripId, trip);
+        return weatherDtoList;
     }
 }

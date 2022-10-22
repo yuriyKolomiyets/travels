@@ -10,6 +10,6 @@ import java.util.List;
 public interface WeatherService {
     List<WeatherDto> getWeatherThroughRest(Trip convert);
 
-    void listenWeatherResponse(List<WeatherResponse> weatherResponses);
+    void listenWeatherResponse(WeatherResponse weatherResponses);
     void sendWeatherRequest(WeatherRequest weatherRequest);
 }
