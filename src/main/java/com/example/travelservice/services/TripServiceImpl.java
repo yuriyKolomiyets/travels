@@ -35,7 +35,7 @@ public class TripServiceImpl implements TripService, ApplicationListener<TripSpr
     @Override
     public Trip createTrip(Trip trip) {
         Trip save = tripRepository.save(trip);
-        weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip, trip.getId()));
+        weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip));
         return save;
     }
 

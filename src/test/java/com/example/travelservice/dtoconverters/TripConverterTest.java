@@ -40,7 +40,7 @@ class TripConverterTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        tripConverter = new TripConverter(locationService, travelerRepository, tripService);
+        tripConverter = new TripConverter(locationService);
     }
 
     @Test

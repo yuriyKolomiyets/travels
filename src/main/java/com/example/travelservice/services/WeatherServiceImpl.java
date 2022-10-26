@@ -8,10 +8,8 @@ import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.springevents.TripSpringEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +21,12 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherFromApiService weatherFromApiService;
     private final WeatherChannels weatherChannels;
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
-    public WeatherServiceImpl(WeatherFromApiService weatherFromApiService, WeatherChannels weatherChannels) {
+    public WeatherServiceImpl(WeatherFromApiService weatherFromApiService, WeatherChannels weatherChannels, ApplicationEventPublisher applicationEventPublisher) {
         this.weatherFromApiService = weatherFromApiService;
         this.weatherChannels = weatherChannels;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     public void publishCustomEvent(Long tripId, List<WeatherDto> weatherDtoList) {
-        System.out.println("Publishing custom event. ");
+        log.info("Publishing custom event. ");
         TripSpringEvent tripSpringEvent = new TripSpringEvent(this, tripId, weatherDtoList);
         applicationEventPublisher.publishEvent(tripSpringEvent);
     }

@@ -32,7 +32,7 @@ public class TripConverter {
                 Enum.valueOf(Meal.class, source.getMeal()));
     }
 
-    public WeatherRequest convertTripToWeatherRequest (Trip source, Long tripId) {
+    public WeatherRequest convertTripToWeatherRequest (Trip source) {
         if (source == null) {
             return null;
         }
@@ -40,7 +40,7 @@ public class TripConverter {
         return new WeatherRequest(
                 Double.valueOf(source.getLocation().getLatitude()),
                 Double.valueOf(source.getLocation().getLongitude()),
-                tripId
+                source.getId()
         );
     }
 
