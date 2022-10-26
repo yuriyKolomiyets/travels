@@ -13,11 +13,7 @@ public interface TripService {
 
     Trip createTrip(Trip trip);
 
-
-
     Trip updateTrip(Long id, Trip trip);
-
-    Long findId(Trip source);
 
     List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherResponseUnitList);
 }
