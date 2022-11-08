@@ -30,12 +30,6 @@ class TripControllerTest {
     @Mock
     TripConverter tripConverter;
 
-    @Mock
-    WeatherService weatherService;
-
-    @Mock
-    WeatherFromRestApiService weatherFromRestApiService;
-
     TripController tripController;
     public static final Long TRIP_ID = 1L;
 
@@ -43,7 +37,7 @@ class TripControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        tripController = new TripController(tripService, tripConverter, weatherService, weatherFromRestApiService);
+        tripController = new TripController(tripService, tripConverter);
         mockMvc = MockMvcBuilders.standaloneSetup(tripController)
                 .build();
 
