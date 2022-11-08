@@ -8,8 +8,7 @@ import com.example.travelservice.model.Trip;
 import java.util.List;
 
 public interface WeatherService {
-    List<WeatherDto> getWeatherThroughRest(Trip convert);
+    List<WeatherDto> getWeatherFromApi(Trip trip);
 
-    void listenWeatherResponse(WeatherResponse weatherResponses);
-    void sendWeatherRequest(WeatherRequest weatherRequest);
 }
+

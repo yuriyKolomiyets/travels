@@ -1,7 +1,7 @@
 package com.example.travelservice.controllers;
 
 import com.example.travelservice.dtoconverters.TripConverter;
-import com.example.travelservice.model.Location;
+import com.example.travelservice.integration.WeatherFromRestApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.services.TripService;
 import com.example.travelservice.services.WeatherService;
@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -31,10 +30,6 @@ class TripControllerTest {
     @Mock
     TripConverter tripConverter;
 
-    @Mock
-    WeatherService weatherService;
-
-
     TripController tripController;
     public static final Long TRIP_ID = 1L;
 
@@ -42,7 +37,7 @@ class TripControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        tripController = new TripController(tripService, tripConverter, weatherService);
+        tripController = new TripController(tripService, tripConverter);
         mockMvc = MockMvcBuilders.standaloneSetup(tripController)
                 .build();
 

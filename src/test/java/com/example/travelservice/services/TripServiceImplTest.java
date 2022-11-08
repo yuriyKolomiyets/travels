@@ -1,11 +1,9 @@
 package com.example.travelservice.services;
 
-import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
-import com.example.travelservice.integration.WeatherFromApiService;
+import com.example.travelservice.integration.WeatherIntegrationService;
 import com.example.travelservice.model.Location;
 import com.example.travelservice.model.Meal;
-import com.example.travelservice.model.Traveler;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TripRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,20 +24,14 @@ class TripServiceImplTest {
     TripRepository tripRepository;
 
     @Mock
-    WeatherFromApiService weatherFromApiService;
-
-    @Mock
-    WeatherService weatherService;
-
-    @Mock
-    TripConverter tripConverter;
+    WeatherIntegrationService weatherIntegrationService;
 
     TripService tripService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        tripService = new TripServiceImpl(tripRepository, weatherService, tripConverter);
+        tripService = new TripServiceImpl(tripRepository, weatherIntegrationService);
     }
 
     @Test
