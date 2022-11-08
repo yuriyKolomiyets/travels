@@ -12,4 +12,5 @@ import lombok.ToString;
 public class WeatherRequest {
     private Double latitude;
     private Double longitude;
+    private Long tripId;
 }

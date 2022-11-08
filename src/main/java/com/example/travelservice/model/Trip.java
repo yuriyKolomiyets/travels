@@ -1,11 +1,18 @@
 package com.example.travelservice.model;
 
+import com.example.travelservice.dto.WeatherDto;
+import com.example.travelservice.dtoconverters.WeatherResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +21,8 @@ import java.util.List;
 @EqualsAndHashCode(exclude = {"travelers"})
 @NoArgsConstructor
 @Entity
-public class Trip {
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+public class Trip implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +42,11 @@ public class Trip {
 
     @Enumerated(EnumType.ORDINAL)
     private Meal meal;
+
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    @JsonProperty("weather_dto_list")
+    private List <WeatherDto> weatherDtoList;
 
     public Trip(Date startDate, Date endDate, Location location, List<Traveler> travelers, Meal meal) {
         this.startDate = startDate;

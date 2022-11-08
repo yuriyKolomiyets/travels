@@ -1,20 +1,20 @@
 package com.example.travelservice.services;
-
 import com.example.travelservice.dto.WeatherDto;
-import com.example.travelservice.dto.WeatherRequest;
 import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
-import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TripRepository;
+import com.example.travelservice.springevents.TripSpringEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TripServiceImpl implements TripService {
+public class TripServiceImpl implements TripService, ApplicationListener<TripSpringEvent> {
 
     private final TripRepository tripRepository;
     private final WeatherService weatherService;
@@ -34,10 +34,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public Trip createTrip(Trip trip) {
+        Trip save = tripRepository.save(trip);
         weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip));
-        return tripRepository.save(trip);
-
-
+        return save;
     }
 
     @Override
@@ -50,5 +49,19 @@ public class TripServiceImpl implements TripService {
         } else {
             throw new NotFoundException("Trip Not Found. For ID value: " + id.toString());
         }
+    }
+
+
+    @Override
+    public List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherDtoList) {
+        Trip trip = findById(tripId);
+        trip.setWeatherDtoList(weatherDtoList);
+        updateTrip(tripId, trip);
+        return weatherDtoList;
+    }
+
+    @Override
+    public void onApplicationEvent(TripSpringEvent event) {
+        saveWeather(event.getTripId(), event.getWeatherDtoList());
     }
 }

@@ -10,4 +10,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface TripRepository extends CrudRepository<Trip, Long> {
+    List<Trip> findByStartDateAndLocation(Date startDate, Location location);
 }

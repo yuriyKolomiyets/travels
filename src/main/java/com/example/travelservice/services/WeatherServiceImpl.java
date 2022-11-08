@@ -2,24 +2,32 @@ package com.example.travelservice.services;
 
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dto.WeatherRequest;
+import com.example.travelservice.dtoconverters.WeatherResponse;
 import com.example.travelservice.integration.WeatherChannels;
 import com.example.travelservice.integration.WeatherFromApiService;
 import com.example.travelservice.model.Trip;
-import lombok.RequiredArgsConstructor;
+import com.example.travelservice.springevents.TripSpringEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherFromApiService weatherFromApiService;
     private final WeatherChannels weatherChannels;
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public WeatherServiceImpl(WeatherFromApiService weatherFromApiService, WeatherChannels weatherChannels, ApplicationEventPublisher applicationEventPublisher) {
+        this.weatherFromApiService = weatherFromApiService;
+        this.weatherChannels = weatherChannels;
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @Override
     public List<WeatherDto> getWeatherThroughRest(Trip trip) {
@@ -28,8 +36,15 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Override
     @StreamListener(WeatherChannels.WEATHER_RESPONSE_INPUT_CHANNEL)
-    public void listenWeatherResponse(List<WeatherDto> weathers) {
-        log.info("Got response for weatherApi {}", weathers);
+    public void listenWeatherResponse(WeatherResponse weatherResponses) {
+        log.info("Got response for weatherApi {}", weatherResponses);
+        publishCustomEvent(weatherResponses.getTripId(), weatherResponses.getWeatherDtoList());
+    }
+
+    public void publishCustomEvent(Long tripId, List<WeatherDto> weatherDtoList) {
+        log.info("Publishing custom event. ");
+        TripSpringEvent tripSpringEvent = new TripSpringEvent(this, tripId, weatherDtoList);
+        applicationEventPublisher.publishEvent(tripSpringEvent);
     }
 
     @Override
