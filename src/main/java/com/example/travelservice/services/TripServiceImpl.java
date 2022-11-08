@@ -2,6 +2,7 @@ package com.example.travelservice.services;
 import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
+import com.example.travelservice.integration.WeatherIntegrationService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.repositories.TripRepository;
 import com.example.travelservice.springevents.TripSpringEvent;
@@ -17,8 +18,7 @@ import java.util.Optional;
 public class TripServiceImpl implements TripService, ApplicationListener<TripSpringEvent> {
 
     private final TripRepository tripRepository;
-    private final WeatherService weatherService;
-    private final TripConverter tripConverter;
+    private final WeatherIntegrationService weatherIntegrationService;
 
     @Override
     public Trip findById(Long l) {
@@ -35,8 +35,25 @@ public class TripServiceImpl implements TripService, ApplicationListener<TripSpr
     @Override
     public Trip createTrip(Trip trip) {
         Trip save = tripRepository.save(trip);
-        weatherService.sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip));
+        List<WeatherDto> weatherFromApiList = weatherIntegrationService.getWeatherFromApi(trip);
+
+        if(!weatherFromApiList.isEmpty()){
+            saveWeather(trip.getId(), weatherFromApiList);
+        }
         return save;
+    }
+
+    @Override
+    public void onApplicationEvent(TripSpringEvent event) {
+        saveWeather(event.getTripId(), event.getWeatherDtoList());
+    }
+
+    @Override
+    public List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherDtoList) {
+        Trip trip = findById(tripId);
+        trip.setWeatherDtoList(weatherDtoList);
+        updateTrip(tripId, trip);
+        return weatherDtoList;
     }
 
     @Override
@@ -49,19 +66,5 @@ public class TripServiceImpl implements TripService, ApplicationListener<TripSpr
         } else {
             throw new NotFoundException("Trip Not Found. For ID value: " + id.toString());
         }
-    }
-
-
-    @Override
-    public List<WeatherDto> saveWeather(Long tripId, List<WeatherDto> weatherDtoList) {
-        Trip trip = findById(tripId);
-        trip.setWeatherDtoList(weatherDtoList);
-        updateTrip(tripId, trip);
-        return weatherDtoList;
-    }
-
-    @Override
-    public void onApplicationEvent(TripSpringEvent event) {
-        saveWeather(event.getTripId(), event.getWeatherDtoList());
     }
 }
