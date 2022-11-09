@@ -1,16 +1,11 @@
 package com.example.travelservice.controllers;
 
 import com.example.travelservice.dto.TripDto;
-import com.example.travelservice.dto.WeatherDto;
 import com.example.travelservice.dtoconverters.TripConverter;
-import com.example.travelservice.integration.WeatherFromRestApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.services.TripService;
-import com.example.travelservice.services.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

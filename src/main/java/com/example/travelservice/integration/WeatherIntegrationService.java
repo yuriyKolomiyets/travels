@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface WeatherIntegrationService {
 
-    List<WeatherDto> getWeatherFromApi(Trip trip);
+    void sendRequestToApi(Trip trip);
+    void publishCustomEvent(Long tripId, List<WeatherDto> weatherDtoList);
 }
