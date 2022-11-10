@@ -1,10 +1,8 @@
 package com.example.travelservice.controllers;
 
 import com.example.travelservice.dtoconverters.TripConverter;
-import com.example.travelservice.integration.WeatherFromRestApiService;
 import com.example.travelservice.model.Trip;
 import com.example.travelservice.services.TripService;
-import com.example.travelservice.services.WeatherService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -29,9 +29,8 @@ public class WeatherFromRabbitMQService implements WeatherIntegrationService{
 
 
     @Override
-    public List<WeatherDto> getWeatherFromApi(Trip trip) {
+    public void sendRequestToApi(Trip trip) {
         sendWeatherRequest(tripConverter.convertTripToWeatherRequest(trip));
-        return new ArrayList<>();
     }
 
     @StreamListener(WeatherChannels.WEATHER_RESPONSE_INPUT_CHANNEL)
@@ -40,6 +39,7 @@ public class WeatherFromRabbitMQService implements WeatherIntegrationService{
         publishCustomEvent(weatherResponses.getTripId(), weatherResponses.getWeatherDtoList());
     }
 
+    @Override
     public void publishCustomEvent(Long tripId, List<WeatherDto> weatherDtoList) {
         log.info("Publishing custom event. ");
         TripSpringEvent tripSpringEvent = new TripSpringEvent(this, tripId, weatherDtoList);

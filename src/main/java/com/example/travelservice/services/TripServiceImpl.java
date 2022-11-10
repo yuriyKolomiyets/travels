@@ -1,6 +1,5 @@
 package com.example.travelservice.services;
 import com.example.travelservice.dto.WeatherDto;
-import com.example.travelservice.dtoconverters.TripConverter;
 import com.example.travelservice.exeptions.NotFoundException;
 import com.example.travelservice.integration.WeatherIntegrationService;
 import com.example.travelservice.model.Trip;
@@ -35,17 +34,14 @@ public class TripServiceImpl implements TripService, ApplicationListener<TripSpr
     @Override
     public Trip createTrip(Trip trip) {
         Trip save = tripRepository.save(trip);
-        List<WeatherDto> weatherFromApiList = weatherIntegrationService.getWeatherFromApi(trip);
-
-        if(!weatherFromApiList.isEmpty()){
-            saveWeather(trip.getId(), weatherFromApiList);
-        }
+        weatherIntegrationService.sendRequestToApi(trip);
         return save;
     }
 
     @Override
     public void onApplicationEvent(TripSpringEvent event) {
         saveWeather(event.getTripId(), event.getWeatherDtoList());
+        System.out.println("MAGIC");
     }
 
     @Override
